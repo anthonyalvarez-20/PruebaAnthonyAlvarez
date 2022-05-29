@@ -1,0 +1,86 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="~/Home/Index">Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="~/Seguros/Index">Seguro <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="~/Asegurados/Index">Asegurados</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Buscar Seguros Personas
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="#" id="ceduBusqueda">Buscar Por cedula</a>
+                    <a class="dropdown-item" href="#" id="codiBusqueda">Buscar Por codigo del Seguro</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="row">
+
+    <div class="col-6" style="margin-top:2vw">
+        <button type="button" class="btn btn-success" id="botonReset">Presentar todos los datos</button>
+
+    </div>
+
+    <div class="col-12" style="margin-top:2vw">
+        <label for="cedulaBuscar" id="labelcedula"> Ingrese la cedula que quiere buscar </label>
+        <input type="text" id="cedulaBuscar" placeholder="Cedula" />
+        <button type="button" class="btn btn-success" id="botonCedula">Buscar</button>
+    </div>
+
+    <div class="col-12">
+        <label for="codigoBuscar" id="labelCodigo"> Ingrese el codigo que quiere buscar </label>
+        <input type="text" id="codigoBuscar" placeholder="Codigo" />
+        <button type="button" class="btn btn-success" id="botonCodigo">Buscar</button>
+    </div>
+</div>
+
+
+
+<div class="row" style="margin-top:2vw">
+    <div class="col-12">
+        <table class="table" id="segurotabla">
+            <thead>
+                <tr>
+                    <th>Codigo Seguro</th>
+                    <th>Nombre del seguro</th>
+                    <th>Nombre</th>
+                    <th>Cedula</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.css" />
+
+
+@section Scripts{
+
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.js"></script>
+
+    <script src="~/js/Home.js"></script>
+}

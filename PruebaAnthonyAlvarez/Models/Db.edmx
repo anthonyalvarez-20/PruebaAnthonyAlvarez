@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SegurosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Asegurados">
+          <Key>
+            <PropertyRef Name="IdPersona" />
+          </Key>
+          <Property Name="IdPersona" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Cedula" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="NombrePersona" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Telefono" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Edad" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Seguro">
+          <Key>
+            <PropertyRef Name="CodigoSeguro" />
+          </Key>
+          <Property Name="CodigoSeguro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreSeguro" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Prima" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="SumaAseguradora" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Seguro_Persona">
+          <Key>
+            <PropertyRef Name="IdSeguroPersona" />
+          </Key>
+          <Property Name="IdSeguroPersona" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodigoSeguro" Type="int" Nullable="false" />
+          <Property Name="IdPersona" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Seguro_Pe__Codig__4AB81AF0">
+          <End Role="Seguro" Type="Self.Seguro" Multiplicity="1" />
+          <End Role="Seguro_Persona" Type="Self.Seguro_Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Seguro">
+              <PropertyRef Name="CodigoSeguro" />
+            </Principal>
+            <Dependent Role="Seguro_Persona">
+              <PropertyRef Name="CodigoSeguro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Seguro_Pe__IdPer__49C3F6B7">
+          <End Role="Asegurados" Type="Self.Asegurados" Multiplicity="1" />
+          <End Role="Seguro_Persona" Type="Self.Seguro_Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asegurados">
+              <PropertyRef Name="IdPersona" />
+            </Principal>
+            <Dependent Role="Seguro_Persona">
+              <PropertyRef Name="IdPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SegurosModelStoreContainer">
+          <EntitySet Name="Asegurados" EntityType="Self.Asegurados" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Seguro" EntityType="Self.Seguro" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Seguro_Persona" EntityType="Self.Seguro_Persona" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Seguro_Pe__Codig__4AB81AF0" Association="Self.FK__Seguro_Pe__Codig__4AB81AF0">
+            <End Role="Seguro" EntitySet="Seguro" />
+            <End Role="Seguro_Persona" EntitySet="Seguro_Persona" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Seguro_Pe__IdPer__49C3F6B7" Association="Self.FK__Seguro_Pe__IdPer__49C3F6B7">
+            <End Role="Asegurados" EntitySet="Asegurados" />
+            <End Role="Seguro_Persona" EntitySet="Seguro_Persona" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SegurosModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Asegurados">
+          <Key>
+            <PropertyRef Name="IdPersona" />
+          </Key>
+          <Property Name="IdPersona" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cedula" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NombrePersona" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Telefono" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Edad" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Seguro_Persona" Relationship="Self.FK__Seguro_Pe__IdPer__49C3F6B7" FromRole="Asegurados" ToRole="Seguro_Persona" />
+        </EntityType>
+        <EntityType Name="Seguro">
+          <Key>
+            <PropertyRef Name="CodigoSeguro" />
+          </Key>
+          <Property Name="CodigoSeguro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreSeguro" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Prima" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SumaAseguradora" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Seguro_Persona" Relationship="Self.FK__Seguro_Pe__Codig__4AB81AF0" FromRole="Seguro" ToRole="Seguro_Persona" />
+        </EntityType>
+        <EntityType Name="Seguro_Persona">
+          <Key>
+            <PropertyRef Name="IdSeguroPersona" />
+          </Key>
+          <Property Name="IdSeguroPersona" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodigoSeguro" Type="Int32" Nullable="false" />
+          <Property Name="IdPersona" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Asegurados" Relationship="Self.FK__Seguro_Pe__IdPer__49C3F6B7" FromRole="Seguro_Persona" ToRole="Asegurados" />
+          <NavigationProperty Name="Seguro" Relationship="Self.FK__Seguro_Pe__Codig__4AB81AF0" FromRole="Seguro_Persona" ToRole="Seguro" />
+        </EntityType>
+        <Association Name="FK__Seguro_Pe__IdPer__49C3F6B7">
+          <End Role="Asegurados" Type="Self.Asegurados" Multiplicity="1" />
+          <End Role="Seguro_Persona" Type="Self.Seguro_Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asegurados">
+              <PropertyRef Name="IdPersona" />
+            </Principal>
+            <Dependent Role="Seguro_Persona">
+              <PropertyRef Name="IdPersona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Seguro_Pe__Codig__4AB81AF0">
+          <End Role="Seguro" Type="Self.Seguro" Multiplicity="1" />
+          <End Role="Seguro_Persona" Type="Self.Seguro_Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Seguro">
+              <PropertyRef Name="CodigoSeguro" />
+            </Principal>
+            <Dependent Role="Seguro_Persona">
+              <PropertyRef Name="CodigoSeguro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SegurosEntities3" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Asegurados" EntityType="Self.Asegurados" />
+          <EntitySet Name="Seguro" EntityType="Self.Seguro" />
+          <EntitySet Name="Seguro_Persona" EntityType="Self.Seguro_Persona" />
+          <AssociationSet Name="FK__Seguro_Pe__IdPer__49C3F6B7" Association="Self.FK__Seguro_Pe__IdPer__49C3F6B7">
+            <End Role="Asegurados" EntitySet="Asegurados" />
+            <End Role="Seguro_Persona" EntitySet="Seguro_Persona" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Seguro_Pe__Codig__4AB81AF0" Association="Self.FK__Seguro_Pe__Codig__4AB81AF0">
+            <End Role="Seguro" EntitySet="Seguro" />
+            <End Role="Seguro_Persona" EntitySet="Seguro_Persona" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SegurosModelStoreContainer" CdmEntityContainer="SegurosEntities3">
+          <EntitySetMapping Name="Asegurados">
+            <EntityTypeMapping TypeName="SegurosModel.Asegurados">
+              <MappingFragment StoreEntitySet="Asegurados">
+                <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
+                <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+                <ScalarProperty Name="NombrePersona" ColumnName="NombrePersona" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Edad" ColumnName="Edad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Seguro">
+            <EntityTypeMapping TypeName="SegurosModel.Seguro">
+              <MappingFragment StoreEntitySet="Seguro">
+                <ScalarProperty Name="CodigoSeguro" ColumnName="CodigoSeguro" />
+                <ScalarProperty Name="NombreSeguro" ColumnName="NombreSeguro" />
+                <ScalarProperty Name="Prima" ColumnName="Prima" />
+                <ScalarProperty Name="SumaAseguradora" ColumnName="SumaAseguradora" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Seguro_Persona">
+            <EntityTypeMapping TypeName="SegurosModel.Seguro_Persona">
+              <MappingFragment StoreEntitySet="Seguro_Persona">
+                <ScalarProperty Name="IdSeguroPersona" ColumnName="IdSeguroPersona" />
+                <ScalarProperty Name="CodigoSeguro" ColumnName="CodigoSeguro" />
+                <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

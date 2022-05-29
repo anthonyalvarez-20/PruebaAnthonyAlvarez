@@ -1,0 +1,52 @@
+﻿@model List<PruebaAnthonyAlvarez.Models.ViewModels.SeguroViewModel>
+@{
+    ViewBag.Title = "Seguros disponibles";
+}
+
+<div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="~/Home/Index">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="~/Seguros/Index">Seguro <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="~/Asegurados/Index">Asegurados</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<h2 class="flex-center">@ViewBag.Title</h2>
+
+<div class="row" style=" padding:5px;text-align:right">
+        <a href="~/Seguros/NuevoSeguro" class="btn btn-primary">Nuevo Seguro</a>
+</div>
+
+
+<div class="row">
+    <div class="col-12">
+        <table class="table">
+            <tr>
+                <th>Nombre del seguro</th>
+                <th>Prima</th>
+                <th>Suma de Aseguradora</th>
+            </tr>
+            @foreach (var seguro in Model)
+            {
+        <tr>
+            <td>@seguro.NombreSeguro</td>
+            <td>@seguro.Prima</td>
+            <td>@seguro.SumaAseguradora</td>
+            <td><a href="~/Seguros/EditarSeguro/@seguro.CodigoSeguro" class="btn btn-success">Editar</a></td>
+            <td><a href="~/Seguros/EliminarSeguro/@seguro.CodigoSeguro" class="btn btn-danger">Eliminar</a></td>
+        </tr>
+            }
+        </table>
+    </div>
+</div>
